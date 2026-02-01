@@ -1,0 +1,19 @@
+# Antigravity Rules
+
+## General Principles
+- **SOLID**: Adhere strictly to SOLID principles (Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion).
+- **Code Style**: Follow Laravel coding standards and conventions (PSR-12). Group imports from the same namespace (e.g., `use App\Models\{Product, Category};`).
+- **Architecture**: Keep controllers thin; offload logic to Services, Actions, or Jobs.
+
+## Routing
+- **Method**: Use `spatie/laravel-route-attributes` for routing.
+- **Location**: Define routes directly in Controllers using attributes/decorators.
+- **Restriction**: Do NOT define routes in `routes/api.php` or `routes/web.php` unless absolutely necessary for framework bootstrapping.
+
+## API Project Structure
+- **Focus**: This is an API-only project.
+- **Response**: Use standard JSON responses (Resource classes are preferred).
+
+## Domain
+- **Scope**: Inventory System (WareTrack).
+- **Future Growth**: Scalable to Shipments, Orders, Quotes.
