@@ -10,6 +10,18 @@
   "dashboard": {
     "title": "Tablero",
     "welcome": "Bienvenido a WareTrack",
-    "logout": "Cerrar Sesión"
+    "logout": "Cerrar Sesión",
+    "stats": {
+        "products": "Total Productos",
+        "orders": "Pedidos Recientes",
+        "customers": "Clientes Activos"
+    }
+  },
+  "sidebar": {
+    "dashboard": "Inicio",
+    "products": "Productos",
+    "orders": "Pedidos",
+    "customers": "Clientes",
+    "warehouses": "Almacenes"
   }
 }

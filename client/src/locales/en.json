@@ -10,6 +10,18 @@
   "dashboard": {
     "title": "Dashboard",
     "welcome": "Welcome to WareTrack",
-    "logout": "Logout"
+    "logout": "Logout",
+    "stats": {
+        "products": "Total Products",
+        "orders": "Recent Orders",
+        "customers": "Active Customers"
+    }
+  },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "products": "Products",
+    "orders": "Orders",
+    "customers": "Customers",
+    "warehouses": "Warehouses"
   }
 }

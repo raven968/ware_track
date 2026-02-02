@@ -51,8 +51,8 @@ php artisan key:generate
 php artisan migrate
 
 # Start Server
-php artisan serve
-# Runs on http://localhost:8000
+php artisan serve --port=8001
+# Runs on http://localhost:8001
 ```
 
 ### 2. Frontend Setup
@@ -68,7 +68,7 @@ pnpm dev
 # Runs on http://localhost:5173
 ```
 
-> **Note:** The frontend is configured to proxy API requests to `http://localhost:8000`. Ensure the backend is running.
+> **Note:** The frontend is configured to proxy API requests to `http://localhost:8001`. Ensure the backend is running.
 
 ---
 
