@@ -25,7 +25,10 @@ class WarehouseController extends Controller
     public function store(StoreWarehouseRequest $request)
     {
         $warehouse = Warehouse::create($request->validated());
-        return response()->json($warehouse, 201);
+        return response()->json([
+            'message' => 'Warehouse created successfully',
+            'data' => $warehouse,
+        ], 201);
     }
 
     #[Get('{warehouse}')]
@@ -38,7 +41,10 @@ class WarehouseController extends Controller
     public function update(UpdateWarehouseRequest $request, Warehouse $warehouse)
     {
         $warehouse->update($request->validated());
-        return response()->json($warehouse);
+        return response()->json([
+            'message' => 'Warehouse updated successfully',
+            'data' => $warehouse,
+        ]);
     }
 
     #[Delete('{warehouse}')]

@@ -20,16 +20,22 @@ class InventoryController extends Controller
     #[Post('add-stock')]
     public function addStock(InventoryAdjustmentRequest $request)
     {
-        $result = $this->service->addStock($request->validated(), $request->user());
+        $data = $this->service->addStock($request->validated(), $request->user());
 
-        return response()->json($result);
+        return response()->json([
+            'message' => 'Stock added successfully',
+            'data' => $data,
+        ]);
     }
 
     #[Post('remove-stock')]
     public function removeStock(InventoryAdjustmentRequest $request)
     {
-        $result = $this->service->removeStock($request->validated(), $request->user());
+        $data = $this->service->removeStock($request->validated(), $request->user());
 
-        return response()->json($result);
+        return response()->json([
+            'message' => 'Stock removed successfully',
+            'data' => $data,
+        ]);
     }
 }

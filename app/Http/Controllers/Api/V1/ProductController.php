@@ -29,7 +29,10 @@ class ProductController extends Controller
     {
         $product = $this->service->create($request->validated());
 
-        return response()->json($product, 201);
+        return response()->json([
+            'message' => 'Product created successfully',
+            'data' => $product,
+        ], 201);
     }
 
     #[Get('{product}')]
@@ -43,7 +46,10 @@ class ProductController extends Controller
     {
         $updatedProduct = $this->service->update($product, $request->validated());
 
-        return response()->json($updatedProduct);
+        return response()->json([
+            'message' => 'Product updated successfully',
+            'data' => $updatedProduct,
+        ]);
     }
 
     #[Delete('{product}')]

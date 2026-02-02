@@ -16,6 +16,16 @@
     - Always use Form Requests instead of inline validation.
     - Organize Requests by Domain folders (e.g., `Requests/Products/StoreProductRequest.php`).
 
+## API Response Format
+- **Structure**: All state-changing responses (POST, PUT, DELETE) must return:
+  ```json
+  {
+      "message": "Descriptive message",
+      "data": { ... }
+  }
+  ```
+- **Responsibility**: The **Controller** is responsible for defining the response message, not the Service.
+
 ## Routing
 - **Method**: Use `spatie/laravel-route-attributes` for routing.
 - **Location**: Define routes directly in Controllers using attributes/decorators.

@@ -35,7 +35,6 @@ class InventoryService
             );
 
             return [
-                'message' => 'Stock added successfully',
                 'current_stock' => $new_stock,
             ];
         });
@@ -73,7 +72,6 @@ class InventoryService
             );
 
             return [
-                'message' => 'Stock removed successfully',
                 'current_stock' => $new_stock,
             ];
         });
