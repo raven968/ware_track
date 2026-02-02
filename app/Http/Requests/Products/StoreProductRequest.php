@@ -29,6 +29,9 @@ class StoreProductRequest extends FormRequest
             'barcode' => 'nullable|string',
             'min_stock' => 'integer|min:0',
             'active' => 'boolean',
+            'prices' => 'nullable|array',
+            'prices.*.price_list_id' => 'required|exists:price_lists,id',
+            'prices.*.price' => 'required|numeric|min:0',
         ];
     }
 }

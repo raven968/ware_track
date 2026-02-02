@@ -41,7 +41,7 @@ class ProductController extends Controller
     #[Middleware('can:view-products')]
     public function show(Product $product): JsonResponse
     {
-        return response()->json($product);
+        return response()->json($product->load('priceLists'));
     }
 
     #[Put('{product}')]

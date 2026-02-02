@@ -3,6 +3,8 @@ import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import Layout from './components/Layout'
 
+import ProductList from './pages/products/ProductList'
+
 function App() {
   const isAuthenticated = !!localStorage.getItem('token')
 
@@ -14,7 +16,7 @@ function App() {
         {/* Protected Routes wrapped in Layout */}
         <Route element={isAuthenticated ? <Layout /> : <Navigate to="/login" />}>
           <Route path="/" element={<Dashboard />} />
-          {/* Add other protected routes here later, e.g. /products */}
+          <Route path="/products" element={<ProductList />} />
         </Route>
       </Routes>
     </Router>

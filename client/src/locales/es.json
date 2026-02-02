@@ -23,5 +23,30 @@
     "orders": "Pedidos",
     "customers": "Clientes",
     "warehouses": "Almacenes"
+  },
+  "products": {
+    "title": "Productos",
+    "add": "Agregar Producto",
+    "table": {
+      "name": "Nombre",
+      "sku": "SKU",
+      "barcode": "Código de Barras",
+      "price": "Precio Base",
+      "stock": "Existencias",
+      "actions": "Acciones"
+    },
+    "delete_confirm": "¿Estás seguro de querer eliminar este producto?",
+    "form": {
+      "title_add": "Agregar Nuevo Producto",
+      "title_edit": "Editar Producto",
+      "name": "Nombre del Producto",
+      "sku": "SKU",
+      "barcode": "Código de Barras",
+      "price": "Precio Base",
+      "price_lists": "Listas de Precios",
+      "description": "Descripción",
+      "cancel": "Cancelar",
+      "save": "Guardar Producto"
+    }
   }
 }
