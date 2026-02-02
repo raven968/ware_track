@@ -3,16 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class PriceList extends BaseModel
+class Warehouse extends BaseModel
 {
     use HasFactory;
 
     protected $fillable = [
         'name',
+        'location',
         'active',
     ];
 
@@ -25,8 +24,8 @@ class PriceList extends BaseModel
 
     public function products(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class)
-            ->withPivot('price')
+        return $this->belongsToMany(Product::class, 'product_warehouse')
+            ->withPivot('stock')
             ->withTimestamps();
     }
 }

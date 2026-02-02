@@ -17,3 +17,7 @@
 ## Domain
 - **Scope**: Inventory System (WareTrack).
 - **Future Growth**: Scalable to Shipments, Orders, Quotes.
+
+
+## Documentation
+- **Postman**: Always update the Postman collection file when creating or modifying API endpoints.
