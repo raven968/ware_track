@@ -30,7 +30,7 @@ class ProductController extends Controller
         $product = $this->service->create($request->validated());
 
         return response()->json([
-            'message' => 'Product created successfully',
+            'message' => __('messages.product_created'),
             'data' => $product,
         ], 201);
     }
@@ -47,7 +47,7 @@ class ProductController extends Controller
         $updatedProduct = $this->service->update($product, $request->validated());
 
         return response()->json([
-            'message' => 'Product updated successfully',
+            'message' => __('messages.product_updated'),
             'data' => $updatedProduct,
         ]);
     }

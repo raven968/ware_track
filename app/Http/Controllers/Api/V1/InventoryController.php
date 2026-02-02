@@ -23,7 +23,7 @@ class InventoryController extends Controller
         $data = $this->service->addStock($request->validated(), $request->user());
 
         return response()->json([
-            'message' => 'Stock added successfully',
+            'message' => __('messages.stock_added'),
             'data' => $data,
         ]);
     }
@@ -34,7 +34,7 @@ class InventoryController extends Controller
         $data = $this->service->removeStock($request->validated(), $request->user());
 
         return response()->json([
-            'message' => 'Stock removed successfully',
+            'message' => __('messages.stock_removed'),
             'data' => $data,
         ]);
     }

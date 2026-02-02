@@ -30,7 +30,7 @@ class CategoryController extends Controller
         $category = $this->service->create($request->validated());
 
         return response()->json([
-            'message' => 'Category created successfully',
+            'message' => __('messages.category_created'),
             'data' => $category,
         ], 201);
     }
@@ -47,7 +47,7 @@ class CategoryController extends Controller
         $updatedCategory = $this->service->update($category, $request->validated());
 
         return response()->json([
-            'message' => 'Category updated successfully',
+            'message' => __('messages.category_updated'),
             'data' => $updatedCategory,
         ]);
     }

@@ -26,7 +26,7 @@ class WarehouseController extends Controller
     {
         $warehouse = Warehouse::create($request->validated());
         return response()->json([
-            'message' => 'Warehouse created successfully',
+            'message' => __('messages.warehouse_created'),
             'data' => $warehouse,
         ], 201);
     }
@@ -42,7 +42,7 @@ class WarehouseController extends Controller
     {
         $warehouse->update($request->validated());
         return response()->json([
-            'message' => 'Warehouse updated successfully',
+            'message' => __('messages.warehouse_updated'),
             'data' => $warehouse,
         ]);
     }

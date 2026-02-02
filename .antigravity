@@ -25,6 +25,7 @@
   }
   ```
 - **Responsibility**: The **Controller** is responsible for defining the response message, not the Service.
+- **Localization**: All response messages must use translation keys (e.g., `__('messages.key')`) instead of hardcoded strings.
 
 ## Routing
 - **Method**: Use `spatie/laravel-route-attributes` for routing.
