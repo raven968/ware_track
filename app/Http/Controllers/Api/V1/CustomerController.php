@@ -19,12 +19,14 @@ class CustomerController extends Controller
     ) {}
 
     #[Get('/')]
+    #[Middleware('can:view-customers')]
     public function index(): JsonResponse
     {
         return response()->json($this->service->list());
     }
 
     #[Post('/')]
+    #[Middleware('can:create-customers')]
     public function store(StoreCustomerRequest $request): JsonResponse
     {
         $customer = $this->service->create($request->validated());
@@ -36,12 +38,14 @@ class CustomerController extends Controller
     }
 
     #[Get('{customer}')]
+    #[Middleware('can:view-customers')]
     public function show(Customer $customer): JsonResponse
     {
         return response()->json($customer->load('user'));
     }
 
     #[Put('{customer}')]
+    #[Middleware('can:update-customers')]
     public function update(UpdateCustomerRequest $request, Customer $customer): JsonResponse
     {
         $updatedCustomer = $this->service->update($customer, $request->validated());
@@ -53,6 +57,7 @@ class CustomerController extends Controller
     }
 
     #[Delete('{customer}')]
+    #[Middleware('can:delete-customers')]
     public function destroy(Customer $customer): JsonResponse
     {
         $this->service->delete($customer);

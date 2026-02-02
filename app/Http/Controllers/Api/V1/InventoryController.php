@@ -18,6 +18,7 @@ class InventoryController extends Controller
     ) {}
 
     #[Post('add-stock')]
+    #[Middleware('can:update-products')]
     public function addStock(InventoryAdjustmentRequest $request)
     {
         $data = $this->service->addStock($request->validated(), $request->user());
@@ -29,6 +30,7 @@ class InventoryController extends Controller
     }
 
     #[Post('remove-stock')]
+    #[Middleware('can:update-products')]
     public function removeStock(InventoryAdjustmentRequest $request)
     {
         $data = $this->service->removeStock($request->validated(), $request->user());

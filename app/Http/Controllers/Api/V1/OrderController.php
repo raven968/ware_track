@@ -19,12 +19,14 @@ class OrderController extends Controller
     ) {}
 
     #[Get('/')]
+    #[Middleware('can:view-orders')]
     public function index(): JsonResponse
     {
         return response()->json($this->service->list());
     }
 
     #[Post('/')]
+    #[Middleware('can:create-orders')]
     public function store(StoreOrderRequest $request): JsonResponse
     {
         $order = $this->service->create($request->validated(), $request->user());
@@ -36,12 +38,14 @@ class OrderController extends Controller
     }
 
     #[Get('{order}')]
+    #[Middleware('can:view-orders')]
     public function show(Order $order): JsonResponse
     {
         return response()->json($order->load('items.product', 'customer'));
     }
 
     #[Put('{order}')]
+    #[Middleware('can:update-orders')]
     public function update(UpdateOrderRequest $request, Order $order): JsonResponse
     {
         $updatedOrder = $this->service->update($order, $request->validated(), $request->user());
@@ -53,6 +57,7 @@ class OrderController extends Controller
     }
 
     #[Delete('{order}')]
+    #[Middleware('can:delete-orders')]
     public function destroy(Order $order): JsonResponse
     {
         $this->service->delete($order, request()->user());

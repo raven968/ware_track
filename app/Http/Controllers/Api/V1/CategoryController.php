@@ -19,12 +19,14 @@ class CategoryController extends Controller
     ) {}
 
     #[Get('/')]
+    #[Middleware('can:view-categories')]
     public function index(): JsonResponse
     {
         return response()->json($this->service->list());
     }
 
     #[Post('/')]
+    #[Middleware('can:create-categories')]
     public function store(StoreCategoryRequest $request): JsonResponse
     {
         $category = $this->service->create($request->validated());
@@ -36,12 +38,14 @@ class CategoryController extends Controller
     }
 
     #[Get('{category}')]
+    #[Middleware('can:view-categories')]
     public function show(Category $category): JsonResponse
     {
         return response()->json($category->load('parent', 'children'));
     }
 
     #[Put('{category}')]
+    #[Middleware('can:update-categories')]
     public function update(UpdateCategoryRequest $request, Category $category): JsonResponse
     {
         $updatedCategory = $this->service->update($category, $request->validated());
@@ -53,6 +57,7 @@ class CategoryController extends Controller
     }
 
     #[Delete('{category}')]
+    #[Middleware('can:delete-categories')]
     public function destroy(Category $category): JsonResponse
     {
         $this->service->delete($category);

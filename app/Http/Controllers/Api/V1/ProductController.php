@@ -19,12 +19,14 @@ class ProductController extends Controller
     ) {}
 
     #[Get('/')]
+    #[Middleware('can:view-products')]
     public function index(): JsonResponse
     {
         return response()->json($this->service->list());
     }
 
     #[Post('/')]
+    #[Middleware('can:create-products')]
     public function store(StoreProductRequest $request): JsonResponse
     {
         $product = $this->service->create($request->validated());
@@ -36,12 +38,14 @@ class ProductController extends Controller
     }
 
     #[Get('{product}')]
+    #[Middleware('can:view-products')]
     public function show(Product $product): JsonResponse
     {
         return response()->json($product);
     }
 
     #[Put('{product}')]
+    #[Middleware('can:update-products')]
     public function update(UpdateProductRequest $request, Product $product): JsonResponse
     {
         $updatedProduct = $this->service->update($product, $request->validated());
@@ -53,6 +57,7 @@ class ProductController extends Controller
     }
 
     #[Delete('{product}')]
+    #[Middleware('can:delete-products')]
     public function destroy(Product $product): JsonResponse
     {
         $this->service->delete($product);
