@@ -9,4 +9,9 @@ return [
     'warehouse_updated' => 'Warehouse updated successfully',
     'stock_added' => 'Stock added successfully',
     'stock_removed' => 'Stock removed successfully',
+    'customer_created' => 'Customer created successfully',
+    'customer_updated' => 'Customer updated successfully',
+    'order_created' => 'Order created successfully',
+    'order_updated' => 'Order updated successfully',
+    'order_deleted' => 'Order deleted successfully',
 ];
