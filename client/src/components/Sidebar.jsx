@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Home, Package, ShoppingCart, Users, Warehouse } from 'lucide-react';
+import { Home, Package, ShoppingCart, Users, Warehouse, UserCog } from 'lucide-react';
 import { cn } from "@/lib/utils";
 
 export default function Sidebar() {
@@ -11,8 +11,10 @@ export default function Sidebar() {
     { icon: Home, label: t('sidebar.dashboard'), path: '/' },
     { icon: Package, label: t('sidebar.products'), path: '/products' },
     { icon: ShoppingCart, label: t('sidebar.orders'), path: '/orders' },
+    { icon: ShoppingCart, label: t('sidebar.orders'), path: '/orders' },
     { icon: Users, label: t('sidebar.customers'), path: '/customers' },
     { icon: Warehouse, label: t('sidebar.warehouses'), path: '/warehouses' },
+    { icon: UserCog, label: t('sidebar.users'), path: '/users' },
   ];
 
   return (

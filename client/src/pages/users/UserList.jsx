@@ -18,11 +18,11 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Plus, Edit, Trash2, ChevronLeft, ChevronRight } from "lucide-react";
-import ProductForm from '@/components/products/ProductForm';
+import UserForm from '@/components/users/UserForm';
 
-export default function ProductList() {
+export default function UserList() {
   const { t } = useTranslation();
-  const [products, setProducts] = useState([]);
+  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [pagination, setPagination] = useState({
     current_page: 1,
@@ -32,80 +32,69 @@ export default function ProductList() {
 
   // Modal State
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentProduct, setCurrentProduct] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [priceLists, setPriceLists] = useState([]);
 
-  const fetchProducts = async (page = 1) => {
+  const fetchUsers = async (page = 1) => {
     setLoading(true);
     try {
-      const response = await api.get(`/products?page=${page}`);
+      const response = await api.get(`/users?page=${page}`);
       setPagination(response.data);
-      setProducts(response.data.data);
+      setUsers(response.data.data);
     } catch (error) {
-      console.error("Error fetching products:", error);
+      console.error("Error fetching users:", error);
     } finally {
       setLoading(false);
     }
   };
 
-  const fetchPriceLists = async () => {
-    try {
-        const response = await api.get('/price-lists');
-        setPriceLists(response.data);
-    } catch (error) {
-        console.error("Error fetching price lists:", error);
-    }
-  };
-
   useEffect(() => {
-    fetchProducts();
-    fetchPriceLists();
+    fetchUsers();
   }, []);
 
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= pagination.last_page) {
-        fetchProducts(newPage);
+        fetchUsers(newPage);
     }
   };
 
   const handleOpenCreate = () => {
-    setCurrentProduct(null);
+    setCurrentUser(null);
     setIsModalOpen(true);
   };
 
-  const handleOpenEdit = (product) => {
-    setCurrentProduct(product);
+  const handleOpenEdit = (user) => {
+    setCurrentUser(user);
     setIsModalOpen(true);
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm(t('products.delete_confirm'))) return;
+    if (!window.confirm(t('users.delete_confirm'))) return;
 
     try {
-        await api.delete(`/products/${id}`);
-        toast.success(t('products.delete_success'));
-        fetchProducts(pagination.current_page);
+        await api.delete(`/users/${id}`);
+        toast.success(t('users.delete_success'));
+        fetchUsers(pagination.current_page);
     } catch (error) {
-        console.error("Error deleting product:", error);
-        toast.error(t('products.delete_error'));
+        console.error("Error deleting user:", error);
+        toast.error(t('users.delete_error'));
     }
   };
 
   const handleSave = async (data) => {
     setIsSubmitting(true);
     try {
-        if (currentProduct) {
-            await api.put(`/products/${currentProduct.id}`, data);
+        if (currentUser) {
+            await api.put(`/users/${currentUser.id}`, data);
         } else {
-            await api.post('/products', data);
+            await api.post('/users', data);
         }
-        toast.success(t('products.save_success'));
+        toast.success(t('users.save_success'));
         setIsModalOpen(false);
-        fetchProducts(pagination.current_page);
+        fetchUsers(pagination.current_page);
     } catch (error) {
-        console.error("Error saving product:", error);
-        toast.error(t('products.save_error'));
+        console.error("Error saving user:", error);
+        toast.error(t('users.save_error'));
     } finally {
         setIsSubmitting(false);
     }
@@ -115,11 +104,11 @@ export default function ProductList() {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold tracking-tight text-gray-900">
-          {t('products.title')}
+          {t('users.title')}
         </h1>
         <Button onClick={handleOpenCreate}>
             <Plus className="mr-2 h-4 w-4" />
-            {t('products.add')}
+            {t('users.add')}
         </Button>
       </div>
 
@@ -127,10 +116,10 @@ export default function ProductList() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>{t('products.table.name')}</TableHead>
-              <TableHead>{t('products.table.sku')}</TableHead>
-              <TableHead>{t('products.table.barcode')}</TableHead>
-              <TableHead className="text-right">{t('products.table.actions')}</TableHead>
+              <TableHead>{t('users.table.name')}</TableHead>
+              <TableHead>{t('users.table.email')}</TableHead>
+              <TableHead>{t('users.table.role')}</TableHead>
+              <TableHead className="text-right">{t('users.table.actions')}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -140,23 +129,29 @@ export default function ProductList() {
                         Loading...
                     </TableCell>
                 </TableRow>
-            ) : products.length === 0 ? (
+            ) : users.length === 0 ? (
                 <TableRow>
                     <TableCell colSpan={4} className="text-center h-24 text-gray-500">
-                        No products found.
+                        No users found.
                     </TableCell>
                 </TableRow>
             ) : (
-                products.map((product) => (
-                <TableRow key={product.id}>
-                    <TableCell className="font-medium text-gray-900">{product.name}</TableCell>
-                    <TableCell className="text-gray-500">{product.sku}</TableCell>
-                    <TableCell className="text-gray-500">{product.barcode || '-'}</TableCell>
+                users.map((user) => (
+                <TableRow key={user.id}>
+                    <TableCell className="font-medium text-gray-900">{user.name}</TableCell>
+                    <TableCell className="text-gray-500">{user.email}</TableCell>
+                    <TableCell className="text-gray-500">
+                      {user.roles && user.roles.length > 0 ? (
+                        <span className="inline-flex items-center rounded-full bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
+                          {user.roles[0].title || user.roles[0].name}
+                        </span>
+                      ) : '-'}
+                    </TableCell>
                     <TableCell className="text-right space-x-2">
-                        <Button variant="ghost" size="icon" onClick={() => handleOpenEdit(product)}>
+                        <Button variant="ghost" size="icon" onClick={() => handleOpenEdit(user)}>
                             <Edit className="h-4 w-4 text-blue-600" />
                         </Button>
-                        <Button variant="ghost" size="icon" onClick={() => handleDelete(product.id)}>
+                        <Button variant="ghost" size="icon" onClick={() => handleDelete(user.id)}>
                             <Trash2 className="h-4 w-4 text-red-600" />
                         </Button>
                     </TableCell>
@@ -199,12 +194,11 @@ export default function ProductList() {
         <DialogContent>
             <DialogHeader>
                 <DialogTitle>
-                    {currentProduct ? t('products.form.title_edit') : t('products.form.title_add')}
+                    {currentUser ? t('users.form.title_edit') : t('users.form.title_add')}
                 </DialogTitle>
             </DialogHeader>
-            <ProductForm 
-                product={currentProduct} 
-                priceLists={priceLists}
+            <UserForm 
+                user={currentUser} 
                 onSubmit={handleSave} 
                 onCancel={() => setIsModalOpen(false)}
                 isSubmitting={isSubmitting}

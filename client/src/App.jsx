@@ -4,6 +4,8 @@ import Dashboard from './pages/Dashboard'
 import Layout from './components/Layout'
 
 import ProductList from './pages/products/ProductList'
+import UserList from './pages/users/UserList'
+import { Toaster } from "@/components/ui/sonner"
 
 function App() {
   const isAuthenticated = !!localStorage.getItem('token')
@@ -17,8 +19,10 @@ function App() {
         <Route element={isAuthenticated ? <Layout /> : <Navigate to="/login" />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="/products" element={<ProductList />} />
+          <Route path="/users" element={<UserList />} />
         </Route>
       </Routes>
+      <Toaster />
     </Router>
   )
 }

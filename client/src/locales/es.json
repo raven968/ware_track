@@ -22,7 +22,33 @@
     "products": "Productos",
     "orders": "Pedidos",
     "customers": "Clientes",
-    "warehouses": "Almacenes"
+    "warehouses": "Almacenes",
+    "users": "Usuarios"
+  },
+  "users": {
+    "title": "Gestión de Usuarios",
+    "add": "Agregar Usuario",
+    "table": {
+      "name": "Nombre",
+      "email": "Correo",
+      "role": "Rol",
+      "actions": "Acciones"
+    },
+    "form": {
+      "title_add": "Nuevo Usuario",
+      "title_edit": "Editar Usuario",
+      "name": "Nombre",
+      "email": "Correo Electrónico",
+      "password": "Contraseña",
+      "role": "Rol",
+      "cancel": "Cancelar",
+      "save": "Guardar"
+    },
+    "delete_confirm": "¿Eliminar este usuario?",
+    "delete_success": "Usuario eliminado correctamente",
+    "delete_error": "Error al eliminar usuario",
+    "save_success": "Usuario guardado correctamente",
+    "save_error": "Error al guardar usuario"
   },
   "products": {
     "title": "Productos",
@@ -36,6 +62,10 @@
       "actions": "Acciones"
     },
     "delete_confirm": "¿Estás seguro de querer eliminar este producto?",
+    "delete_success": "Producto eliminado correctamente",
+    "delete_error": "Error al eliminar producto",
+    "save_success": "Producto guardado correctamente",
+    "save_error": "Error al guardar producto",
     "form": {
       "title_add": "Agregar Nuevo Producto",
       "title_edit": "Editar Producto",
