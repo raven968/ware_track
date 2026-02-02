@@ -1,0 +1,15 @@
+{
+  "login": {
+    "title": "Login",
+    "description": "Enter your credentials to access WareTrack.",
+    "email_label": "Email",
+    "password_label": "Password",
+    "submit": "Sign In",
+    "failed": "Login failed"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome to WareTrack",
+    "logout": "Logout"
+  }
+}

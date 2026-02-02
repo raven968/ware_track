@@ -1,0 +1,15 @@
+{
+  "login": {
+    "title": "Iniciar Sesión",
+    "description": "Ingresa tus credenciales para acceder a WareTrack.",
+    "email_label": "Correo Electrónico",
+    "password_label": "Contraseña",
+    "submit": "Ingresar",
+    "failed": "Inicio de sesión fallido"
+  },
+  "dashboard": {
+    "title": "Tablero",
+    "welcome": "Bienvenido a WareTrack",
+    "logout": "Cerrar Sesión"
+  }
+}
