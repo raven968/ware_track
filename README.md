@@ -1,13 +1,13 @@
 # WareTrack 📦
 
-WareTrack is a modern Inventory and Order Management System featuring a Laravel 11 API backend and a React (Vite) frontend.
+WareTrack is a modern Inventory and Order Management System featuring a Laravel 12 API backend and a React (Vite) frontend.
 
 ## 🚀 Technology Stack
 
 ### Backend
-- **Framework:** Laravel 11
+- **Framework:** Laravel 12
 - **Authentication:** Laravel Sanctum (Token-based)
-- **Database:** MySQL
+- **Database:** PostgreSQL
 - **Key Patterns:** Service Layer, Form Requests, DTOs (via Request validation), Route Attributes.
 - **Localization:** `en` and `es` support via `lang/` files.
 
@@ -28,7 +28,7 @@ WareTrack is a modern Inventory and Order Management System featuring a Laravel 
 - Composer
 - Node.js v18+ (Recommended v20)
 - pnpm (Preferred) or npm
-- MySQL
+- PostgreSQL
 
 ### 1. Backend Setup
 
