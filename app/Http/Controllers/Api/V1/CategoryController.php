@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Services\CategoryService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use App\Http\Requests\Categories\StoreCategoryRequest;
+use App\Http\Requests\Categories\UpdateCategoryRequest;
 use Spatie\RouteAttributes\Attributes\{Delete, Get, Middleware, Post, Prefix, Put};
 
 #[Prefix('categories')]
@@ -24,15 +25,9 @@ class CategoryController extends Controller
     }
 
     #[Post('/')]
-    public function store(Request $request): JsonResponse
+    public function store(StoreCategoryRequest $request): JsonResponse
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'parent_id' => 'nullable|exists:categories,id',
-            'active' => 'boolean',
-        ]);
-
-        $category = $this->service->create($validated);
+        $category = $this->service->create($request->validated());
 
         return response()->json($category, 201);
     }
@@ -44,15 +39,9 @@ class CategoryController extends Controller
     }
 
     #[Put('{category}')]
-    public function update(Request $request, Category $category): JsonResponse
+    public function update(UpdateCategoryRequest $request, Category $category): JsonResponse
     {
-        $validated = $request->validate([
-            'name' => 'string|max:255',
-            'parent_id' => 'nullable|exists:categories,id|not_in:' . $category->id, // Prevent self-parenting
-            'active' => 'boolean',
-        ]);
-
-        $updatedCategory = $this->service->update($category, $validated);
+        $updatedCategory = $this->service->update($category, $request->validated());
 
         return response()->json($updatedCategory);
     }

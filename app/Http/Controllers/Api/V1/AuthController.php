@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Services\AuthService;
+use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\RegisterRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Spatie\RouteAttributes\Attributes\{Get, Post, Prefix};
@@ -16,15 +18,9 @@ class AuthController extends Controller
     ) {}
 
     #[Post('register')]
-    public function register(Request $request): JsonResponse
+    public function register(RegisterRequest $request): JsonResponse
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-        ]);
-
-        $token = $this->service->register($validated);
+        $token = $this->service->register($request->validated());
 
         return response()->json([
             'access_token' => $token,
@@ -33,13 +29,9 @@ class AuthController extends Controller
     }
 
     #[Post('login')]
-    public function login(Request $request): JsonResponse
+    public function login(LoginRequest $request): JsonResponse
     {
-        $validated = $request->validate([
-            'email' => 'required|string|email',
-            'password' => 'required|string',
-        ]);
-
+        $validated = $request->validated();
         $token = $this->service->login($validated['email'], $validated['password']);
 
         return response()->json([

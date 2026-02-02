@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Categories;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateWarehouseRequest extends FormRequest
+class UpdateCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,10 +21,13 @@ class UpdateWarehouseRequest extends FormRequest
      */
     public function rules(): array
     {
+        $category = $this->route('category');
+        $id = $category ? $category->id : null;
+
         return [
-            'name' => ['sometimes', 'string', 'max:255'],
-            'location' => ['nullable', 'string', 'max:255'],
-            'active' => ['boolean'],
+            'name' => 'string|max:255',
+            'parent_id' => 'nullable|exists:categories,id|not_in:' . $id,
+            'active' => 'boolean',
         ];
     }
 }

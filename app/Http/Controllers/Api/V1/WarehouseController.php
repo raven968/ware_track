@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreWarehouseRequest;
-use App\Http\Requests\UpdateWarehouseRequest;
+use App\Http\Requests\Warehouses\StoreWarehouseRequest;
+use App\Http\Requests\Warehouses\UpdateWarehouseRequest;
 use App\Models\Warehouse;
 use Spatie\RouteAttributes\Attributes\Get;
 use Spatie\RouteAttributes\Attributes\Post;

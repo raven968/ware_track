@@ -3,7 +3,18 @@
 ## General Principles
 - **SOLID**: Adhere strictly to SOLID principles (Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion).
 - **Code Style**: Follow Laravel coding standards and conventions (PSR-12). Group imports from the same namespace (e.g., `use App\Models\{Product, Category};`).
-- **Architecture**: Keep controllers thin; offload logic to Services, Actions, or Jobs.
+
+## Coding Standards
+- **Variables**: Use `$snake_case`.
+- **Functions/Methods**: Use `camelCase`.
+- **Classes**: Use `UpperCamelCase`.
+
+## Architecture
+- **Layering**: Key controllers thin. Always use **Services** for business logic.
+- **Routing**: Use `spatie/laravel-route-attributes`.
+- **Validation**:
+    - Always use Form Requests instead of inline validation.
+    - Organize Requests by Domain folders (e.g., `Requests/Products/StoreProductRequest.php`).
 
 ## Routing
 - **Method**: Use `spatie/laravel-route-attributes` for routing.

@@ -39,6 +39,18 @@ class Product extends BaseModel
             ->withTimestamps();
     }
 
+    public function logMovement(string $type, int $quantity, int $warehouse_id, int $user_id, ?string $comment = null): ProductMovementLog
+    {
+        return ProductMovementLog::create([
+            'user_id' => $user_id,
+            'product_id' => $this->id,
+            'warehouse_id' => $warehouse_id,
+            'type' => $type,
+            'quantity' => $quantity,
+            'comment' => $comment,
+        ]);
+    }
+
     protected function casts(): array
     {
         return [

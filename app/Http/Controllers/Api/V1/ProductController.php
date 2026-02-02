@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Services\ProductService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use App\Http\Requests\Products\StoreProductRequest;
+use App\Http\Requests\Products\UpdateProductRequest;
 use Spatie\RouteAttributes\Attributes\{Delete, Get, Middleware, Post, Prefix, Put};
 
 #[Prefix('products')]
@@ -24,19 +25,9 @@ class ProductController extends Controller
     }
 
     #[Post('/')]
-    public function store(Request $request): JsonResponse
+    public function store(StoreProductRequest $request): JsonResponse
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'sku' => 'required|string|unique:products,sku',
-            'category_id' => 'nullable|exists:categories,id',
-            'description' => 'nullable|string',
-            'barcode' => 'nullable|string',
-            'min_stock' => 'integer|min:0',
-            'active' => 'boolean',
-        ]);
-
-        $product = $this->service->create($validated);
+        $product = $this->service->create($request->validated());
 
         return response()->json($product, 201);
     }
@@ -48,19 +39,9 @@ class ProductController extends Controller
     }
 
     #[Put('{product}')]
-    public function update(Request $request, Product $product): JsonResponse
+    public function update(UpdateProductRequest $request, Product $product): JsonResponse
     {
-        $validated = $request->validate([
-            'name' => 'string|max:255',
-            'sku' => 'string|unique:products,sku,' . $product->id,
-            'category_id' => 'nullable|exists:categories,id',
-            'description' => 'nullable|string',
-            'barcode' => 'nullable|string',
-            'min_stock' => 'integer|min:0',
-            'active' => 'boolean',
-        ]);
-
-        $updatedProduct = $this->service->update($product, $validated);
+        $updatedProduct = $this->service->update($product, $request->validated());
 
         return response()->json($updatedProduct);
     }

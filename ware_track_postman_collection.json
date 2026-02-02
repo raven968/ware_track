@@ -752,6 +752,97 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Inventory",
+			"item": [
+				{
+					"name": "Add Stock",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"product_id\": 1,\n    \"warehouse_id\": 1,\n    \"quantity\": 10,\n    \"comment\": \"Initial stock\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/inventory/add-stock",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"inventory",
+								"add-stock"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Stock",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"product_id\": 1,\n    \"warehouse_id\": 1,\n    \"quantity\": 5,\n    \"comment\": \"Sale #123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/inventory/remove-stock",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"inventory",
+								"remove-stock"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"variable": [
