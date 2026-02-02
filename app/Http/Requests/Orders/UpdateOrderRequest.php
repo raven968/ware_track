@@ -22,10 +22,10 @@ class UpdateOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'price_list_id' => 'required|exists:price_lists,id',
             'items' => 'required|array|min:1',
             'items.*.product_id' => 'required|exists:products,id',
             'items.*.quantity' => 'required|integer|min:1',
-            'items.*.unit_price' => 'required|numeric|min:0',
             'notes' => 'nullable|string',
         ];
     }

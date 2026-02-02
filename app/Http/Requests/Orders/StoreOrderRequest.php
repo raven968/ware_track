@@ -24,11 +24,11 @@ class StoreOrderRequest extends FormRequest
         return [
             'customer_id' => 'required|exists:customers,id',
             'warehouse_id' => 'required|exists:warehouses,id',
+            'price_list_id' => 'required|exists:price_lists,id',
             'notes' => 'nullable|string',
             'items' => 'required|array|min:1',
             'items.*.product_id' => 'required|exists:products,id',
             'items.*.quantity' => 'required|integer|min:1',
-            'items.*.unit_price' => 'required|numeric|min:0',
         ];
     }
 }

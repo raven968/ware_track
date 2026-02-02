@@ -3,8 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends BaseModel
 {
@@ -56,5 +54,12 @@ class Product extends BaseModel
         return [
             'active' => 'boolean',
         ];
+    }
+
+    protected function prices(): \Illuminate\Database\Eloquent\Casts\Attribute
+    {
+        return \Illuminate\Database\Eloquent\Casts\Attribute::make(
+            get: fn () => $this->priceLists->pluck('pivot.price', 'name'),
+        );
     }
 }

@@ -19,7 +19,22 @@ class OrderService
         return DB::transaction(function () use ($data, $user) {
             $total = 0;
             $items = $data['items'];
-            $warehouse_id = $data['warehouse_id']; // Order comes from a specific warehouse
+            $warehouse_id = $data['warehouse_id'];
+            $price_list_id = $data['price_list_id'];
+
+            // Fetch Prices
+            $product_ids = collect($items)->pluck('product_id');
+            $prices = DB::table('price_list_product')
+                ->where('price_list_id', $price_list_id)
+                ->whereIn('product_id', $product_ids)
+                ->pluck('price', 'product_id');
+
+            // Validate all products have prices
+            foreach ($product_ids as $id) {
+                if (!$prices->has($id)) {
+                    throw new \Exception("Price missing for product ID: {$id} in selected Price List.");
+                }
+            }
 
             // Create Order Shell
             $order = Order::create([
@@ -27,42 +42,29 @@ class OrderService
                 'warehouse_id' => $warehouse_id,
                 'user_id' => $user->id,
                 'status' => 'pending',
-                'total' => 0, // Calculate later
+                'total' => 0,
                 'notes' => $data['notes'] ?? null,
             ]);
 
             foreach ($items as $item) {
-                $product = Product::findOrFail($item['product_id']);
+                $product_id = $item['product_id'];
+                $quantity = $item['quantity'];
                 
                 // Deduct Stock
                 $this->inventoryService->removeStock([
-                    'product_id' => $product->id,
+                    'product_id' => $product_id,
                     'warehouse_id' => $warehouse_id,
-                    'quantity' => $item['quantity'],
+                    'quantity' => $quantity,
                     'comment' => "Order #{$order->id} created"
                 ], $user);
-
-                // Assuming price comes from product or specific price list (using product price for now)
-                // In a real app, we might have price_lists table, but keeping it simple as requested.
-                // Let's assume the request sends the unit_price or we fetch it? 
-                // Creating a simplified version where request has price or we trust backend.
-                // Since Product model doesn't strictly have a 'price' column (it's in price_list_product pivot?), 
-                // let's assume the request carries the price OR for safety we should fetch it.
-                // Given the context schema check (Product table), I don't see a price column in the earlier file view.
-                // Checking `2026_01_28_012125_create_price_list_product_table.php` suggests prices are in lists.
-                // For this iteration, I will assume the frontend sends the `unit_price` verified, 
-                // OR simpler: add a `price` to Product? 
-                // User said "Order flow".
-                // I will use the `unit_price` from the request for now to unblock, 
-                // assuming the frontend selected a price list.
                 
-                $unit_price = $item['unit_price'];
-                $line_total = $unit_price * $item['quantity'];
+                $unit_price = $prices->get($product_id);
+                $line_total = $unit_price * $quantity;
                 
                 OrderItem::create([
                     'order_id' => $order->id,
-                    'product_id' => $product->id,
-                    'quantity' => $item['quantity'],
+                    'product_id' => $product_id,
+                    'quantity' => $quantity,
                     'unit_price' => $unit_price,
                     'total' => $line_total,
                 ]);
@@ -86,9 +88,24 @@ class OrderService
 
             // 2. Sync Items
             $warehouse_id = $order->warehouse_id;
+            $price_list_id = $data['price_list_id'];
             $existing_items = $order->items->keyBy('product_id');
             $new_items = collect($data['items'])->keyBy('product_id');
             $total = 0;
+
+            // Fetch Prices
+            $product_ids = $new_items->pluck('product_id');
+            $prices = DB::table('price_list_product')
+                ->where('price_list_id', $price_list_id)
+                ->whereIn('product_id', $product_ids)
+                ->pluck('price', 'product_id');
+
+             // Validate all products have prices
+             foreach ($product_ids as $id) {
+                if (!$prices->has($id)) {
+                    throw new \Exception("Price missing for product ID: {$id} in selected Price List.");
+                }
+            }
 
             // Handle Removed Items
             foreach ($existing_items as $product_id => $existing_item) {
@@ -108,7 +125,7 @@ class OrderService
             // Handle New/Updated Items
             foreach ($new_items as $product_id => $new_item_data) {
                 $quantity = $new_item_data['quantity'];
-                $unit_price = $new_item_data['unit_price'];
+                $unit_price = $prices->get($product_id); // Fetch from DB
                 $line_total = $quantity * $unit_price;
 
                 if ($existing_items->has($product_id)) {
