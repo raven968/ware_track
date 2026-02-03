@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
+import { AsyncSelect } from "@/components/ui/async-select";
 import api from '@/lib/axios';
 
 export default function UserForm({ user, onSubmit, onCancel, isSubmitting }) {
@@ -33,7 +33,7 @@ export default function UserForm({ user, onSubmit, onCancel, isSubmitting }) {
         setFormData({
             name: user.name || '',
             email: user.email || '',
-            password: '', // Password is blank on edit
+            password: '', 
             role: currentRole,
         });
     } else {
@@ -104,16 +104,16 @@ export default function UserForm({ user, onSubmit, onCancel, isSubmitting }) {
 
       <div className="grid w-full gap-1.5">
         <Label htmlFor="role">{t('users.form.role')}</Label>
-        <Select onValueChange={handleRoleChange} value={formData.role} required>
-            <SelectTrigger>
-                <SelectValue placeholder="Select a role" />
-            </SelectTrigger>
-            <SelectContent>
-                {roles.map(role => (
-                    <SelectItem key={role.id} value={role.name}>{role.title || role.name}</SelectItem>
-                ))}
-            </SelectContent>
-        </Select>
+        <AsyncSelect
+            isLoading={roles.length === 0}
+            options={roles}
+            value={formData.role}
+            onValueChange={handleRoleChange}
+            placeholder="Select a role"
+            itemValue="name"
+            itemLabel={(role) => role.title || role.name}
+            required
+        />
       </div>
 
       <div className="flex justify-end space-x-2 pt-4">
