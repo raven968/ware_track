@@ -28,8 +28,9 @@ export default function Login() {
         password
       })
 
-      const token = response.data.access_token // AuthController returns 'access_token', not 'token'
+      const token = response.data.access_token
       localStorage.setItem('token', token)
+      localStorage.setItem('user', JSON.stringify(response.data.user))
       
       window.location.href = '/'
       
@@ -86,5 +87,4 @@ export default function Login() {
     </div>
   )
 }
-// Need to import i18n instance for the switcher buttons to work directly or use hook
-import i18n from '../i18n';
+

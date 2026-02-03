@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import api from '@/lib/axios';
 import { toast } from "sonner";
+import { handleApiError } from '@/lib/errorHandler';
 import {
   Table,
   TableBody,
@@ -87,8 +88,7 @@ export default function ProductList() {
         toast.success(t('products.delete_success'));
         fetchProducts(pagination.current_page);
     } catch (error) {
-        console.error("Error deleting product:", error);
-        toast.error(t('products.delete_error'));
+        handleApiError(error, t('products.delete_error'));
     }
   };
 
@@ -104,8 +104,7 @@ export default function ProductList() {
         setIsModalOpen(false);
         fetchProducts(pagination.current_page);
     } catch (error) {
-        console.error("Error saving product:", error);
-        toast.error(t('products.save_error'));
+        handleApiError(error, t('products.save_error'));
     } finally {
         setIsSubmitting(false);
     }

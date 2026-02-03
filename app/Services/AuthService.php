@@ -36,4 +36,9 @@ class AuthService
     {
         $user->tokens()->delete();
     }
+
+    public function getAuthenticatedUser(string $email): User
+    {
+        return User::where('email', $email)->firstOrFail();
+    }
 }

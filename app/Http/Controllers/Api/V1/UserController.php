@@ -44,6 +44,13 @@ class UserController extends Controller
         ], 201);
     }
 
+    #[Get('roles/list')]
+    #[Middleware('can:view-users')]
+    public function roles(): JsonResponse
+    {
+        return response()->json(Role::all());
+    }
+
     #[Get('{user}')]
     #[Middleware('can:view-users')]
     public function show(User $user): JsonResponse
@@ -71,11 +78,5 @@ class UserController extends Controller
 
         return response()->json(null, 204);
     }
-
-    #[Get('roles/list')]
-    #[Middleware('can:view-users')]
-    public function roles(): JsonResponse
-    {
-        return response()->json(Role::all());
-    }
 }
+

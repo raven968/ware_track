@@ -17,9 +17,24 @@ export default function Navbar() {
     }
   };
 
-  const toggleLanguage = () => {
+  const toggleLanguage = async () => {
     const newLang = i18n.language === 'en' ? 'es' : 'en';
     i18n.changeLanguage(newLang);
+    
+    // Sync with backend
+    try {
+        const userStr = localStorage.getItem('user');
+        if (userStr) {
+            const user = JSON.parse(userStr);
+            await api.put(`/users/${user.id}`, { locale: newLang });
+            
+            // Update local storage
+            const updatedUser = { ...user, locale: newLang };
+            localStorage.setItem('user', JSON.stringify(updatedUser));
+        }
+    } catch (error) {
+        console.error("Failed to sync language preference", error);
+    }
   };
 
   return (

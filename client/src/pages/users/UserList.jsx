@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import api from '@/lib/axios';
 import { toast } from "sonner";
+import { handleApiError } from '@/lib/errorHandler';
 import {
   Table,
   TableBody,
@@ -76,8 +77,7 @@ export default function UserList() {
         toast.success(t('users.delete_success'));
         fetchUsers(pagination.current_page);
     } catch (error) {
-        console.error("Error deleting user:", error);
-        toast.error(t('users.delete_error'));
+        handleApiError(error, t('users.delete_error'));
     }
   };
 
@@ -93,8 +93,7 @@ export default function UserList() {
         setIsModalOpen(false);
         fetchUsers(pagination.current_page);
     } catch (error) {
-        console.error("Error saving user:", error);
-        toast.error(t('users.save_error'));
+        handleApiError(error, t('users.save_error'));
     } finally {
         setIsSubmitting(false);
     }
