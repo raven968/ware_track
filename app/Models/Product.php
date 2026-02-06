@@ -62,4 +62,16 @@ class Product extends BaseModel
             get: fn () => $this->priceLists->pluck('pivot.price', 'name'),
         );
     }
+
+    public function scopeSearch(\Illuminate\Database\Eloquent\Builder $query, string $term): void
+    {
+        $query->where(function ($q) use ($term) {
+            $q->where('name', 'ilike', "%{$term}%")
+              ->orWhere('sku', 'ilike', "%{$term}%")
+              ->orWhere('barcode', 'ilike', "%{$term}%")
+              ->orWhereHas('category', function ($q) use ($term) {
+                  $q->where('name', 'ilike', "%{$term}%");
+              });
+        });
+    }
 }

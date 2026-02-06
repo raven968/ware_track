@@ -5,6 +5,9 @@ import Layout from './components/Layout'
 
 import ProductList from './pages/products/ProductList'
 import UserList from './pages/users/UserList'
+import WarehouseList from './pages/warehouses/WarehouseList'
+import OrderList from './pages/orders/OrderList'
+import OrderForm from './pages/orders/OrderForm'
 import { Toaster } from "@/components/ui/sonner"
 
 import { useEffect } from 'react';
@@ -38,6 +41,9 @@ function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/products" element={<ProductList />} />
           <Route path="/users" element={<UserList />} />
+          <Route path="/warehouses" element={<WarehouseList />} />
+          <Route path="/orders" element={<OrderList />} />
+          <Route path="/orders/new" element={<OrderForm />} />
         </Route>
       </Routes>
       <Toaster />

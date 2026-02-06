@@ -18,8 +18,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Plus, Edit, Trash2, ChevronLeft, ChevronRight } from "lucide-react";
+import { Plus, Edit, Trash2, ChevronLeft, ChevronRight, PackageOpen } from "lucide-react";
 import ProductForm from '@/components/products/ProductForm';
+import { StockModal } from '@/components/products/StockModal';
 
 export default function ProductList() {
   const { t } = useTranslation();
@@ -35,6 +36,10 @@ export default function ProductList() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentProduct, setCurrentProduct] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  // Stock Modal State
+  const [isStockModalOpen, setIsStockModalOpen] = useState(false);
+  const [stockProduct, setStockProduct] = useState(null);
   const [priceLists, setPriceLists] = useState([]);
 
   const fetchProducts = async (page = 1) => {
@@ -155,6 +160,12 @@ export default function ProductList() {
                         <Button variant="ghost" size="icon" onClick={() => handleOpenEdit(product)}>
                             <Edit className="h-4 w-4 text-blue-600" />
                         </Button>
+                        <Button variant="ghost" size="icon" onClick={() => {
+                            setStockProduct(product);
+                            setIsStockModalOpen(true);
+                        }}>
+                            <PackageOpen className="h-4 w-4 text-green-600" />
+                        </Button>
                         <Button variant="ghost" size="icon" onClick={() => handleDelete(product.id)}>
                             <Trash2 className="h-4 w-4 text-red-600" />
                         </Button>
@@ -210,6 +221,13 @@ export default function ProductList() {
             />
         </DialogContent>
       </Dialog>
+      
+      {/* Stock Management Modal */}
+      <StockModal 
+        isOpen={isStockModalOpen}
+        onClose={() => setIsStockModalOpen(false)}
+        product={stockProduct}
+      />
     </div>
   );
 }

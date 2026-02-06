@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Services\ProductService;
 use Illuminate\Http\JsonResponse;
@@ -20,9 +21,10 @@ class ProductController extends Controller
 
     #[Get('/')]
     #[Middleware('can:view-products')]
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        return response()->json($this->service->list());
+        $search = $request->query('search');
+        return response()->json($this->service->list(15, $search));
     }
 
     #[Post('/')]
@@ -41,7 +43,7 @@ class ProductController extends Controller
     #[Middleware('can:view-products')]
     public function show(Product $product): JsonResponse
     {
-        return response()->json($product->load('priceLists'));
+        return response()->json($product->load(['priceLists', 'warehouses']));
     }
 
     #[Put('{product}')]

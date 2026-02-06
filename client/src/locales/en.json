@@ -22,8 +22,33 @@
     "products": "Products",
     "orders": "Orders",
     "customers": "Customers",
+    "customers": "Customers",
     "warehouses": "Warehouses",
     "users": "Users"
+  },
+  "warehouses": {
+    "title": "Warehouses",
+    "add": "Add Warehouse",
+    "table": {
+      "name": "Name",
+      "location": "Location",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "form": {
+      "title_add": "New Warehouse",
+      "title_edit": "Edit Warehouse",
+      "name": "Name",
+      "location": "Location",
+      "active": "Active",
+      "cancel": "Cancel",
+      "save": "Save"
+    },
+    "delete_confirm": "Delete this warehouse?",
+    "delete_success": "Warehouse deleted successfully",
+    "delete_error": "Failed to delete warehouse",
+    "save_success": "Warehouse saved successfully",
+    "save_error": "Failed to save warehouse"
   },
   "users": {
     "title": "User Management",
@@ -77,6 +102,78 @@
       "description": "Description",
       "cancel": "Cancel",
       "save": "Save Product"
+    },
+    "select_modal": {
+        "title": "Select Product",
+        "search_placeholder": "Search by name, SKU..."
     }
+  },
+  "orders": {
+    "list": {
+        "title": "Orders",
+        "create": "New Order",
+        "customer": "Customer",
+        "date": "Date",
+        "total": "Total",
+        "status": "Status",
+        "no_results": "No orders found.",
+        "error_loading": "Failed to load orders",
+        "confirm_delete": "Are you sure you want to delete this order?"
+    },
+    "form": {
+        "validation_header": "Please fill all required header fields.",
+        "validation_price_list_required": "Please select a price list first.",
+        "validation_items": "Please add at least one item.",
+        "customer": "Customer",
+        "select_customer": "Select Customer",
+        "warehouse": "Warehouse",
+        "select_warehouse": "Select Warehouse",
+        "price_list": "Price List",
+        "select_price_list": "Select Price List",
+        "notes": "Notes",
+        "notes_placeholder": "Optional notes...",
+        "items_title": "Order Items",
+        "add_item": "Add Item",
+        "product": "Product",
+        "select_product": "Select Product",
+        "quantity": "Quantity",
+        "unit_price": "Unit Price",
+        "line_total": "Total",
+        "no_items": "No items added yet.",
+        "subtotal": "Subtotal",
+        "tax": "Tax",
+        "total": "Total",
+        "save": "Create Order",
+        "saving": "Saving..."
+    },
+    "create": "New Order",
+    "save_success": "Order created successfully"
+  },
+  "common": {
+    "actions": "Actions",
+    "previous": "Previous",
+    "next": "Next",
+    "loading": "Loading...",
+    "back": "Back",
+    "select": "Select",
+    "close": "Close",
+    "required": "Required",
+    "cancel": "Cancel",
+    "no_results": "No results found.",
+    "error_loading_data": "Failed to load data"
+  },
+  "stock": {
+      "manage_title": "Manage Stock",
+      "current_stock": "Current Stock",
+      "adjust_title": "Adjust Stock",
+      "select_warehouse_prompt": "Select a warehouse from the left to adjust stock.",
+      "quantity": "Quantity",
+      "comment": "Comment",
+      "comment_placeholder": "Reason for adjustment...",
+      "add": "Add Stock",
+      "remove": "Remove Stock",
+      "validation_required": "Please fill all fields and select a warehouse.",
+      "added_success": "Stock added successfully",
+      "removed_success": "Stock removed successfully"
   }
 }

@@ -7,9 +7,12 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class ProductService
 {
-    public function list(int $perPage = 15): LengthAwarePaginator
+    public function list(int $perPage = 15, ?string $search = null): LengthAwarePaginator
     {
-        return Product::with('priceLists')->latest()->paginate($perPage);
+        return Product::with('priceLists')
+            ->when($search, fn ($q) => $q->search($search))
+            ->latest()
+            ->paginate($perPage);
     }
 
     public function create(array $data): Product

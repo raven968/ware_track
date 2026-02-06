@@ -34,13 +34,13 @@ export function AsyncSelect({
   };
 
   return (
-    <Select value={value} onValueChange={onValueChange} disabled={disabled} {...props}>
+    <Select value={value?.toString()} onValueChange={onValueChange} disabled={disabled} {...props}>
       <SelectTrigger className={className}>
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>
         {options.map((item) => {
-            const val = getValue(item);
+            const val = getValue(item)?.toString();
             return (
                 <SelectItem key={val} value={val}>
                     {getLabel(item)}

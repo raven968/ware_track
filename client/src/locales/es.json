@@ -22,8 +22,33 @@
     "products": "Productos",
     "orders": "Pedidos",
     "customers": "Clientes",
+    "customers": "Clientes",
     "warehouses": "Almacenes",
     "users": "Usuarios"
+  },
+  "warehouses": {
+    "title": "Almacenes",
+    "add": "Agregar Almacén",
+    "table": {
+      "name": "Nombre",
+      "location": "Ubicación",
+      "status": "Estado",
+      "actions": "Acciones"
+    },
+    "form": {
+      "title_add": "Nuevo Almacén",
+      "title_edit": "Editar Almacén",
+      "name": "Nombre",
+      "location": "Ubicación",
+      "active": "Activo",
+      "cancel": "Cancelar",
+      "save": "Guardar"
+    },
+    "delete_confirm": "¿Eliminar este almacén?",
+    "delete_success": "Almacén eliminado correctamente",
+    "delete_error": "Error al eliminar almacén",
+    "save_success": "Almacén guardado correctamente",
+    "save_error": "Error al guardar almacén"
   },
   "users": {
     "title": "Gestión de Usuarios",
@@ -77,6 +102,78 @@
       "description": "Descripción",
       "cancel": "Cancelar",
       "save": "Guardar Producto"
+    },
+    "select_modal": {
+        "title": "Seleccionar Producto",
+        "search_placeholder": "Buscar por nombre, SKU..."
     }
+  },
+  "orders": {
+    "list": {
+        "title": "Ordenes",
+        "create": "Nueva Orden",
+        "customer": "Cliente",
+        "date": "Fecha",
+        "total": "Total",
+        "status": "Estado",
+        "no_results": "No hay ordenes registradas.",
+        "error_loading": "Error al cargar ordenes",
+        "confirm_delete": "¿Seguro que deseas eliminar esta orden?"
+    },
+    "form": {
+        "validation_header": "Por favor completa todos los campos requeridos.",
+        "validation_price_list_required": "Por favor selecciona primero una lista de precios.",
+        "validation_items": "Agrega al menos un producto.",
+        "customer": "Cliente",
+        "select_customer": "Seleccionar Cliente",
+        "warehouse": "Almacén",
+        "select_warehouse": "Seleccionar Almacén",
+        "price_list": "Lista de Precios",
+        "select_price_list": "Seleccionar Lista",
+        "notes": "Notas",
+        "notes_placeholder": "Notas opcionales...",
+        "items_title": "Productos de la Orden",
+        "add_item": "Agregar Item",
+        "product": "Producto",
+        "select_product": "Seleccionar Producto",
+        "quantity": "Cantidad",
+        "unit_price": "Precio Unitario",
+        "line_total": "Total",
+        "no_items": "No hay productos agregados.",
+        "subtotal": "Subtotal",
+        "tax": "Impuesto",
+        "total": "Total",
+        "save": "Crear Orden",
+        "saving": "Guardando..."
+    },
+    "create": "Nueva Orden",
+    "save_success": "Orden creada exitosamente"
+  },
+  "common": {
+    "actions": "Acciones",
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "loading": "Cargando...",
+    "back": "Volver",
+    "select": "Seleccionar",
+    "close": "Cerrar",
+    "required": "Requerido",
+    "cancel": "Cancelar",
+    "no_results": "No se encontraron resultados.",
+    "error_loading_data": "Error al cargar datos"
+  },
+  "stock": {
+      "manage_title": "Gestionar Stock",
+      "current_stock": "Stock Actual",
+      "adjust_title": "Ajustar Stock",
+      "select_warehouse_prompt": "Selecciona un almacén de la izquierda para ajustar.",
+      "quantity": "Cantidad",
+      "comment": "Comentario",
+      "comment_placeholder": "Razón del ajuste...",
+      "add": "Agregar Stock",
+      "remove": "Quitar Stock",
+      "validation_required": "Por favor completa todos los campos y selecciona un almacén.",
+      "added_success": "Stock agregado correctamente",
+      "removed_success": "Stock retirado correctamente"
   }
 }

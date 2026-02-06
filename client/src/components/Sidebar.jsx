@@ -11,7 +11,6 @@ export default function Sidebar() {
     { icon: Home, label: t('sidebar.dashboard'), path: '/' },
     { icon: Package, label: t('sidebar.products'), path: '/products' },
     { icon: ShoppingCart, label: t('sidebar.orders'), path: '/orders' },
-    { icon: ShoppingCart, label: t('sidebar.orders'), path: '/orders' },
     { icon: Users, label: t('sidebar.customers'), path: '/customers' },
     { icon: Warehouse, label: t('sidebar.warehouses'), path: '/warehouses' },
     { icon: UserCog, label: t('sidebar.users'), path: '/users' },
