@@ -20,8 +20,8 @@
   "sidebar": {
     "dashboard": "Inicio",
     "products": "Productos",
+    "categories": "Categorías",
     "orders": "Pedidos",
-    "customers": "Clientes",
     "customers": "Clientes",
     "warehouses": "Almacenes",
     "users": "Usuarios"
@@ -49,6 +49,38 @@
     "delete_error": "Error al eliminar almacén",
     "save_success": "Almacén guardado correctamente",
     "save_error": "Error al guardar almacén"
+  },
+  "customers": {
+    "title": "Clientes",
+    "add": "Agregar Cliente",
+    "form": {
+        "title_add": "Nuevo Cliente",
+        "title_edit": "Editar Cliente",
+        "name": "Nombre",
+        "email": "Correo Electrónico",
+        "phone": "Teléfono",
+        "address": "Dirección"
+    },
+    "delete_confirm": "¿Seguro que deseas eliminar este cliente?",
+    "delete_success": "Cliente eliminado correctamente",
+    "delete_error": "Error al eliminar cliente",
+    "save_success": "Cliente guardado correctamente",
+    "save_error": "Error al guardar cliente"
+  },
+  "categories": {
+    "title": "Categorías",
+    "add": "Agregar Categoría",
+    "form": {
+        "title_add": "Nueva Categoría",
+        "title_edit": "Editar Categoría",
+        "name": "Nombre",
+        "parent": "Categoría Padre"
+    },
+    "delete_confirm": "¿Seguro que deseas eliminar esta categoría?",
+    "delete_success": "Categoría eliminada correctamente",
+    "delete_error": "Error al eliminar categoría",
+    "save_success": "Categoría guardada correctamente",
+    "save_error": "Error al guardar categoría"
   },
   "users": {
     "title": "Gestión de Usuarios",
@@ -148,6 +180,7 @@
         "saving": "Guardando..."
     },
     "create": "Nueva Orden",
+    "edit": "Editar Orden",
     "save_success": "Orden creada exitosamente"
   },
   "common": {
@@ -160,6 +193,7 @@
     "close": "Cerrar",
     "required": "Requerido",
     "cancel": "Cancelar",
+    "save": "Guardar",
     "no_results": "No se encontraron resultados.",
     "error_loading_data": "Error al cargar datos"
   },

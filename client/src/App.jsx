@@ -4,7 +4,9 @@ import Dashboard from './pages/Dashboard'
 import Layout from './components/Layout'
 
 import ProductList from './pages/products/ProductList'
+import CategoryList from './pages/categories/CategoryList'
 import UserList from './pages/users/UserList'
+import CustomerList from './pages/customers/CustomerList'
 import WarehouseList from './pages/warehouses/WarehouseList'
 import OrderList from './pages/orders/OrderList'
 import OrderForm from './pages/orders/OrderForm'
@@ -40,8 +42,10 @@ function App() {
         <Route element={isAuthenticated ? <Layout /> : <Navigate to="/login" />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="/products" element={<ProductList />} />
+          <Route path="/categories" element={<CategoryList />} />
           <Route path="/users" element={<UserList />} />
           <Route path="/warehouses" element={<WarehouseList />} />
+          <Route path="/customers" element={<CustomerList />} />
           <Route path="/orders" element={<OrderList />} />
           <Route path="/orders/new" element={<OrderForm />} />
           <Route path="/orders/:id/edit" element={<OrderForm />} />

@@ -20,8 +20,8 @@
   "sidebar": {
     "dashboard": "Dashboard",
     "products": "Products",
+    "categories": "Categories",
     "orders": "Orders",
-    "customers": "Customers",
     "customers": "Customers",
     "warehouses": "Warehouses",
     "users": "Users"
@@ -49,6 +49,38 @@
     "delete_error": "Failed to delete warehouse",
     "save_success": "Warehouse saved successfully",
     "save_error": "Failed to save warehouse"
+  },
+  "customers": {
+    "title": "Customers",
+    "add": "Add Customer",
+    "form": {
+        "title_add": "New Customer",
+        "title_edit": "Edit Customer",
+        "name": "Name",
+        "email": "Email",
+        "phone": "Phone",
+        "address": "Address"
+    },
+    "delete_confirm": "Are you sure you want to delete this customer?",
+    "delete_success": "Customer deleted successfully",
+    "delete_error": "Failed to delete customer",
+    "save_success": "Customer saved successfully",
+    "save_error": "Failed to save customer"
+  },
+  "categories": {
+    "title": "Categories",
+    "add": "Add Category",
+    "form": {
+        "title_add": "New Category",
+        "title_edit": "Edit Category",
+        "name": "Name",
+        "parent": "Parent Category"
+    },
+    "delete_confirm": "Are you sure you want to delete this category?",
+    "delete_success": "Category deleted successfully",
+    "delete_error": "Failed to delete category",
+    "save_success": "Category saved successfully",
+    "save_error": "Failed to save category"
   },
   "users": {
     "title": "User Management",
@@ -148,6 +180,7 @@
         "saving": "Saving..."
     },
     "create": "New Order",
+    "edit": "Edit Order",
     "save_success": "Order created successfully"
   },
   "common": {
@@ -160,6 +193,7 @@
     "close": "Close",
     "required": "Required",
     "cancel": "Cancel",
+    "save": "Save",
     "no_results": "No results found.",
     "error_loading_data": "Failed to load data"
   },
