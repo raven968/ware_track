@@ -8,7 +8,7 @@ use App\Http\Requests\Orders\UpdateOrderRequest;
 use App\Models\Order;
 use App\Services\OrderService;
 use Illuminate\Http\JsonResponse;
-use Spatie\RouteAttributes\Attributes\{Get, Middleware, Post, Prefix};
+use Spatie\RouteAttributes\Attributes\{Get, Middleware, Post, Put, Delete, Prefix};
 
 #[Prefix('orders')]
 #[Middleware('auth:sanctum')]

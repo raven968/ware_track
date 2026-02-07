@@ -16,11 +16,17 @@ class Order extends Model
     protected $fillable = [
         'customer_id',
         'warehouse_id',
+        'price_list_id',
         'user_id',
         'status',
         'total',
         'notes'
     ];
+
+    public function priceList(): BelongsTo
+    {
+        return $this->belongsTo(PriceList::class);
+    }
 
     public function customer(): BelongsTo
     {

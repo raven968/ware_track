@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import api from '@/lib/axios';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,12 +23,13 @@ import { ProductSelectorModal } from '@/components/orders/ProductSelectorModal';
 export default function OrderForm() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { id } = useParams();
+  const isEditMode = !!id;
   
   // Data State
   const [customers, setCustomers] = useState([]);
   const [warehouses, setWarehouses] = useState([]);
   const [priceLists, setPriceLists] = useState([]);
-  // const [products, setProducts] = useState([]); // Removed, handled by modal
   const [loadingInitial, setLoadingInitial] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -52,21 +53,47 @@ export default function OrderForm() {
 
   // Initial Fetch
   useEffect(() => {
-    Promise.all([
-        api.get('/customers'),
-        api.get('/warehouses'),
-        api.get('/price-lists'),
-        // api.get('/products') // Removed
-    ]).then(([resCust, resWare, resPL]) => {
-        setCustomers(resCust.data.data || resCust.data);
-        setWarehouses(resWare.data);
-        setPriceLists(resPL.data);
-        setLoadingInitial(false);
-    }).catch(err => {
-        handleApiError(err, "Failed to load form data");
-        setLoadingInitial(false);
-    });
-  }, []);
+    const fetchData = async () => {
+        try {
+            const [resCust, resWare, resPL] = await Promise.all([
+                api.get('/customers'),
+                api.get('/warehouses'),
+                api.get('/price-lists'),
+            ]);
+            setCustomers(resCust.data.data || resCust.data);
+            setWarehouses(resWare.data);
+            setPriceLists(resPL.data);
+
+            // If Edit Mode, Fetch Order Details
+            if (isEditMode) {
+                const resOrder = await api.get(`/orders/${id}`);
+                const order = resOrder.data;
+                
+                setFormData({
+                    customer_id: order.customer_id,
+                    warehouse_id: order.warehouse_id,
+                    price_list_id: order.price_list_id,
+                    notes: order.notes || '',
+                    items: order.items.map(item => ({
+                        product_id: item.product_id,
+                        product_name: item.product.name,
+                        quantity: item.quantity,
+                        unit_price: parseFloat(item.unit_price),
+                        total: parseFloat(item.total),
+                        base_price: parseFloat(item.unit_price), // Assume current price is base for now
+                        price_lists: item.product.price_lists || [] // Might need to fetch fresh product data to get all price lists if we want to switch lists accurately
+                    }))
+                });
+            }
+
+            setLoadingInitial(false);
+        } catch (err) {
+            handleApiError(err, "Failed to load form data");
+            setLoadingInitial(false);
+        }
+    };
+    fetchData();
+  }, [id, isEditMode]);
 
   // Handlers
   const handleHeaderChange = (name, value) => {
@@ -205,8 +232,13 @@ export default function OrderForm() {
     }
 
     try {
-        await api.post('/orders', formData);
-        toast.success(t('orders.save_success'));
+        if (isEditMode) {
+             await api.put(`/orders/${id}`, formData);
+             toast.success(t('orders.update_success') || "Order updated successfully");
+        } else {
+             await api.post('/orders', formData);
+             toast.success(t('orders.save_success'));
+        }
         navigate('/orders');
     } catch (error) {
         handleApiError(error);
@@ -220,7 +252,7 @@ export default function OrderForm() {
   return (
     <div className="space-y-6 max-w-5xl mx-auto">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">{t('orders.create')}</h1>
+        <h1 className="text-3xl font-bold">{isEditMode ? t('orders.edit') : t('orders.create')}</h1>
         <Button variant="ghost" onClick={() => navigate('/orders')}>
             <ArrowLeft className="mr-2 h-4 w-4" /> {t('common.back')}
         </Button>
@@ -238,6 +270,7 @@ export default function OrderForm() {
                     itemValue="id"
                     itemLabel="name"
                     placeholder={t('orders.form.select_customer')}
+                    disabled={isEditMode}
                 />
             </div>
             <div className="space-y-2">
@@ -249,6 +282,7 @@ export default function OrderForm() {
                     itemValue="id"
                     itemLabel="name"
                     placeholder={t('orders.form.select_warehouse')}
+                    disabled={isEditMode}
                 />
             </div>
             <div className="space-y-2">
@@ -260,6 +294,7 @@ export default function OrderForm() {
                     itemValue="id"
                     itemLabel="name"
                     placeholder={t('orders.form.select_price_list')}
+                    disabled={isEditMode}
                 />
             </div>
              <div className="col-span-full space-y-2">
@@ -370,7 +405,7 @@ export default function OrderForm() {
         <div className="flex justify-end">
             <Button type="submit" size="lg" disabled={isSubmitting}>
                 <Save className="mr-2 h-4 w-4" /> 
-                {isSubmitting ? t('orders.form.saving') : t('orders.form.save')}
+                {isSubmitting ? t('orders.form.saving') : (isEditMode ? t('orders.form.update') : t('orders.form.save'))}
             </Button>
         </div>
       </form>

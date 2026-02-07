@@ -144,6 +144,7 @@
         "tax": "Tax",
         "total": "Total",
         "save": "Create Order",
+        "update": "Update Order",
         "saving": "Saving..."
     },
     "create": "New Order",

@@ -144,6 +144,7 @@
         "tax": "Impuesto",
         "total": "Total",
         "save": "Crear Orden",
+        "update": "Actualizar Orden",
         "saving": "Guardando..."
     },
     "create": "Nueva Orden",

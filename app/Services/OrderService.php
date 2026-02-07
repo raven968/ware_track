@@ -40,6 +40,7 @@ class OrderService
             $order = Order::create([
                 'customer_id' => $data['customer_id'],
                 'warehouse_id' => $warehouse_id,
+                'price_list_id' => $price_list_id,
                 'user_id' => $user->id,
                 'status' => 'pending',
                 'total' => 0,
@@ -82,8 +83,14 @@ class OrderService
     {
         return DB::transaction(function () use ($order, $data, $user) {
             // 1. Update basic info
-            if (isset($data['notes'])) {
-                $order->update(['notes' => $data['notes']]);
+            $updateData = [];
+            if (isset($data['notes'])) $updateData['notes'] = $data['notes'];
+            
+            // Only update price list if provided (it is required in request but good to be safe)
+            if (isset($data['price_list_id'])) $updateData['price_list_id'] = $data['price_list_id'];
+            
+            if (!empty($updateData)) {
+                $order->update($updateData);
             }
 
             // 2. Sync Items
