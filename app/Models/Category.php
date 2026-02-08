@@ -34,4 +34,10 @@ class Category extends BaseModel
     {
         return $this->hasMany(self::class, 'parent_id');
     }
+
+    public function scopeSearch($query, $term)
+    {
+        $term = "%$term%";
+        $query->where('name', 'ilike', $term);
+    }
 }

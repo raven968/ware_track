@@ -9,7 +9,13 @@ class CategoryService
 {
     public function list(int $perPage = 15): LengthAwarePaginator
     {
-        return Category::with('parent')->latest()->paginate($perPage);
+        $query = Category::with('parent');
+
+        if (request()->has('search')) {
+            $query->search(request('search'));
+        }
+
+        return $query->latest()->paginate($perPage);
     }
 
     public function create(array $data): Category

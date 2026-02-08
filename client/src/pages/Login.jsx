@@ -43,8 +43,11 @@ export default function Login() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <Card className="w-[350px]">
-        <CardHeader>
-          <CardTitle>{t('login.title')}</CardTitle>
+        <CardHeader className="space-y-1 text-center">
+          <div className="flex justify-center mb-4">
+            <img src="/logo.svg" alt="WareTrack" className="h-12 w-12" />
+          </div>
+          <CardTitle className="text-2xl font-bold">{t('login.title')}</CardTitle>
           <CardDescription>{t('login.description')}</CardDescription>
         </CardHeader>
         <CardContent>

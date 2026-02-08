@@ -19,7 +19,8 @@ export default function Sidebar() {
 
   return (
     <div className="h-screen w-64 bg-gray-900 text-white flex flex-col">
-      <div className="p-6 border-b border-gray-800">
+      <div className="p-6 border-b border-gray-800 flex items-center space-x-3">
+        <img src="/logo.svg" alt="WareTrack" className="h-8 w-8" />
         <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
           WareTrack
         </h1>

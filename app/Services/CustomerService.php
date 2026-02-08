@@ -9,7 +9,13 @@ class CustomerService
 {
     public function list(): LengthAwarePaginator
     {
-        return Customer::with('user')->paginate(15);
+        $query = Customer::with('user');
+
+        if (request()->has('search')) {
+            $query->search(request('search'));
+        }
+
+        return $query->latest()->paginate(15);
     }
 
     public function create(array $data): Customer

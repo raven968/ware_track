@@ -24,4 +24,14 @@ class Customer extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function scopeSearch($query, $term)
+    {
+        $term = "%$term%";
+        $query->where(function ($q) use ($term) {
+            $q->where('name', 'ilike', $term)
+              ->orWhere('email', 'ilike', $term)
+              ->orWhere('phone', 'ilike', $term);
+        });
+    }
 }
